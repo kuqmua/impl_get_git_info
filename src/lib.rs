@@ -21,14 +21,12 @@ fn generate(
     let git_info_trait_token_stream = format!("{path}::traits::get_git_info::GetGitInfo")
         .parse::<proc_macro2::TokenStream>()
         .expect("path parse failed");
-    let git_info_trait_usage_token_stream =
-        format!("{path}::common::git::git_info::GitInformation")
-            .parse::<proc_macro2::TokenStream>()
-            .expect("path parse failed");
+    let git_info_type_token_stream = format!("{path}::common::git::git_info::GitInformation")
+        .parse::<proc_macro2::TokenStream>()
+        .expect("path parse failed");
     let gen = quote::quote! {
-        use #git_info_trait_usage_token_stream;
         impl #git_info_trait_token_stream for #ident {
-            fn get_git_info(&self) -> &'static GitInformation<'static> {
+            fn get_git_info(&self) -> &'static #git_info_type_token_stream<'static> {
                 &crate::global_variables::compile_time::git_info::GIT_INFO
             }
         }
