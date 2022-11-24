@@ -1,3 +1,11 @@
+#![deny(
+    clippy::indexing_slicing,
+    clippy::integer_arithmetic,
+    clippy::unwrap_used,
+    clippy::float_arithmetic
+)]
+#![allow(clippy::too_many_arguments)]
+
 #[proc_macro_derive(ImplGetGitInfoFromTufaCommon)]
 pub fn derive_impl_get_git_info_from_tufa_common(
     input: proc_macro::TokenStream,
