@@ -33,8 +33,8 @@ fn generate(
         .parse::<proc_macro2::TokenStream>()
         .expect("path parse failed");
     let gen = quote::quote! {
-        impl #git_info_trait_token_stream for #ident {
-            fn get_git_info(&self) -> &'static #git_info_type_token_stream<'static> {
+        impl<'a> #git_info_trait_token_stream<'a> for #ident {
+            fn get_git_info(&self) -> &#git_info_type_token_stream {
                 &crate::global_variables::compile_time::git_info::GIT_INFO
             }
         }
